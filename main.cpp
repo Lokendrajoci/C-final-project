@@ -4,15 +4,42 @@
 #include <regex>
 using namespace std;
 
+void options()
+{
+    cout << "Enter 1 for registration: ";
+}
+
 int main()
 {
-    cout << "hello world" ;
-    OnlineForm o1;
-    o1.display();
-    o1.saveToFile();
+    int userInput = 0;
 
-    cout << "\nReading from file:\n";
-    o1.loadFromFile();
+    while (true)
+    {
+        options();
+        cin >> userInput;
+
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input, please enter a number.\n";
+            continue;
+        }
+
+        switch (userInput)
+        {
+        case 1:
+        {
+            OnlineForm o1;
+            o1.display();
+            o1.saveToFile();
+            break;
+        }
+        default:
+            cout << "Invalid option. Please try again.\n";
+            break;
+        }
+    }
 
     return 0;
 }
