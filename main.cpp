@@ -6,6 +6,7 @@ using namespace std;
 
 int main()
 {
+    cout << "hello" ;
     OnlineForm o1;
     o1.display();
     o1.saveToFile();
