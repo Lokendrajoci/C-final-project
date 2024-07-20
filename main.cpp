@@ -2,6 +2,9 @@
 #include "OnlineForm.h"
 #include <fstream>
 #include <regex>
+#include <limits>
+#include <cstdlib>
+
 using namespace std;
 
 void options()
@@ -33,12 +36,17 @@ int main()
             OnlineForm o1;
             o1.display();
             o1.saveToFile();
+            o1.loadFromFile();
             break;
+            
         }
         default:
             cout << "Invalid option. Please try again.\n";
             break;
         }
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        exit(0);
     }
 
     return 0;

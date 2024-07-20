@@ -2,28 +2,51 @@
 #include <iostream>
 #include <fstream>
 #include <regex>
+#include <sstream>
+#include <limits>
+
 using namespace std;
 
 OnlineForm::OnlineForm()
 {
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "Enter your name: ";
-    getline(cin, name); // Using getline to capture full name
+    getline(cin, name);
 
-    while (true) {
+    while (true)
+    {
         cout << "Enter your DOB (DD/MM/YYYY): ";
-        getline(cin, DOB); // Using getline to capture full DOB
+        getline(cin, DOB);
 
-        if (isValidDOB(DOB)) {
+        if (isValidDOB(DOB))
+        {
             break;
-        } else {
+        }
+        else
+        {
             cout << "Invalid DOB format. Please use DD/MM/YYYY." << endl;
         }
     }
 
     cout << "Enter your age: ";
     cin >> age;
-    cout << "Enter your NID: ";
-    cin >> NID;
+
+    while (true)
+    {
+        cout << "Enter your NID: ";
+        cin >> NID;
+
+        if (nidCheck(NID) == 0)
+        {
+            break;
+        }
+        else
+        {
+            cout << "NID already exists. Please enter a different NID." << endl;
+        }
+    }
+
     cin.ignore(); // To ignore the newline character left in the input buffer
 }
 
@@ -35,7 +58,7 @@ void OnlineForm::display() const
          << "NID: " << NID << endl;
 }
 
-bool OnlineForm::isValidDOB(const string& dob) const
+bool OnlineForm::isValidDOB(const string &dob) const
 {
     regex pattern(R"(^\d{2}/\d{2}/\d{4}$)");
     return regex_match(dob, pattern);
@@ -43,7 +66,7 @@ bool OnlineForm::isValidDOB(const string& dob) const
 
 void OnlineForm::saveToFile() const
 {
-    ofstream outFile("form_details.txt", ios::app);
+    ofstream outFile("oopProject/form_details.txt", ios::app);
     if (outFile.is_open())
     {
         outFile << name << endl
@@ -61,7 +84,7 @@ void OnlineForm::saveToFile() const
 
 void OnlineForm::loadFromFile() const
 {
-    ifstream inFile("form_details.txt");
+    ifstream inFile("oopProject/form_details.txt");
     if (inFile.is_open())
     {
         string line;
@@ -75,4 +98,28 @@ void OnlineForm::loadFromFile() const
     {
         cout << "Unable to open file for reading." << endl;
     }
+}
+
+int OnlineForm::nidCheck(int idNo) const
+{
+    ifstream file("oopProject/form_details.txt");
+    if (file.fail())
+    {
+        cout << "File failed to open." << endl;
+        return 1;
+    }
+
+    string line;
+    while (getline(file, line))
+    {
+        stringstream ss(line);
+        int num;
+        if (ss >> num && num == idNo)
+        {
+            file.close();
+            return 1; // NID exists
+        }
+    }
+    file.close();
+    return 0; // NID does not exist
 }

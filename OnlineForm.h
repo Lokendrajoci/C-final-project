@@ -7,7 +7,7 @@ using namespace std;
 class OnlineForm
 {
 private:
-    string name, DOB;
+    std::string name, DOB;
     int age, NID;
 
 public:
@@ -16,6 +16,7 @@ public:
     bool isValidDOB(const string& dob) const;
     void saveToFile() const;
     void loadFromFile() const;
+    int nidCheck(int NID) const;
 };
 
 #endif 
