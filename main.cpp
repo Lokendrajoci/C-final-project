@@ -9,7 +9,8 @@ using namespace std;
 
 void options()
 {
-    cout << "Enter 1 for registration: ";
+    cout << "Enter 1 for registration: " << endl
+         << "Enter 2 for LISCENSE exam: ";
 }
 
 int main()
@@ -38,7 +39,6 @@ int main()
             o1.saveToFile();
             o1.loadFromFile();
             break;
-            
         }
         default:
             cout << "Invalid option. Please try again.\n";
