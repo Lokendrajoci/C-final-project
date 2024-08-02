@@ -8,7 +8,7 @@ class OnlineForm
 {
 private:
     std::string name, DOB;
-    int age, NID;
+    int age, NID,TEMPORARY_ID_NUMBER;
 
 public:
     OnlineForm();

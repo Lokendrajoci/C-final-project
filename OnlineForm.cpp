@@ -4,6 +4,8 @@
 #include <regex>
 #include <sstream>
 #include <limits>
+#include <random>
+#include <cstdlib>
 
 using namespace std;
 
@@ -46,8 +48,10 @@ OnlineForm::OnlineForm()
             cout << "NID already exists. Please enter a different NID." << endl;
         }
     }
+    srand((unsigned)time(NULL));
+    TEMPORARY_ID_NUMBER = 1 + (rand());
 
-    cin.ignore(); // To ignore the newline character left in the input buffer
+    cin.ignore();
 }
 
 void OnlineForm::display() const
@@ -73,6 +77,7 @@ void OnlineForm::saveToFile() const
                 << DOB << endl
                 << age << endl
                 << NID << endl
+                << TEMPORARY_ID_NUMBER << endl
                 << "------------------------" << endl;
         outFile.close();
     }
@@ -117,9 +122,9 @@ int OnlineForm::nidCheck(int idNo) const
         if (ss >> num && num == idNo)
         {
             file.close();
-            return 1; // NID exists
+            return 1;
         }
     }
     file.close();
-    return 0; // NID does not exist
+    return 0;
 }
