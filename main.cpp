@@ -10,7 +10,7 @@ using namespace std;
 void options()
 {
     cout << "Enter 1 for registration: " << endl
-         << "Enter 2 for LISCENSE exam: ";
+         << "Enter 2 for LISCENSE exam: " << endl;
 }
 
 int main()
@@ -39,6 +39,10 @@ int main()
             o1.saveToFile();
             o1.loadFromFile();
             break;
+        }
+
+        case 2:
+        {
         }
         default:
             cout << "Invalid option. Please try again.\n";
