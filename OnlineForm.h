@@ -8,7 +8,7 @@ class OnlineForm
 {
 private:
     std::string name, DOB;
-    int age, NID,TEMPORARY_ID_NUMBER;
+    int age, NID;
 
 public:
     OnlineForm();
@@ -17,8 +17,6 @@ public:
     void saveToFile() const;
     void loadFromFile() const;
     int nidCheck(int NID) const;
-
-    void id_display()const;
 };
 
 #endif 

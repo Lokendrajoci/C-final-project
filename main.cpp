@@ -1,42 +1,32 @@
 #include <iostream>
+#include "Exam.h"
+#include "Question.h"
 #include "OnlineForm.h"
-#include "quiz.hpp"
-#include "VehicleRegistration.hpp"
 #include <fstream>
-#include <regex>
+#include <sstream>
+#include <string>
 #include <limits>
-#include <cstdlib>
-#include <iomanip>
 
 using namespace std;
 
 void options()
 {
-    system("cls");
-    cout << "Enter 1 for  registration: " << endl
-         << "Enter 2 for LISCENSE exam: " << endl
-         << "Enter 3 for Vehicle Registration: " << endl
-         << "Enter 4 for BlueBook Renew: " << endl
-         << "Enter 5 Exit:  " << endl;
+    cout << "Enter 1 for registration: " << endl;
+    cout << "Enter 2 for LICENSE Exam" << endl;
 }
 
 int main()
 {
     int userInput = 0;
 
-    VehicleRegistrationSystem regSystem("vehicle_database.bin");
-    BlueBookRenewalSystem blueBookRenewalSystem(regSystem);
-
     while (true)
     {
         options();
-        cout << setfill(' ');
-        cout << setw(15) << "Enter your choice: ";
-        std::cin >> userInput;
-        system("cls");
+        cin >> userInput;
+
         if (cin.fail())
         {
-            std::cin.clear();
+            cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Invalid input, please enter a number.\n";
             continue;
@@ -49,87 +39,46 @@ int main()
             OnlineForm o1;
             o1.display();
             o1.saveToFile();
-            o1.id_display();
+            o1.loadFromFile();
             break;
         }
-
         case 2:
         {
-            Quiz quiz("oopProject//qData.json"); // Initialize with the quiz data file
-            quiz.start();
-        }
-        case 3:
-        {
-            srand(time(0));
-            int choice;
-
-            while (true)
-            {
-                system("cls");
-                cout << "\n\n";
-                cout << "1. Register Vehicle\n";
-                cout << "2. Search Vehicle by Plate Number\n";
-                cout << "3. Return to Main Menu\n";
-                cout << "Enter your choice: ";
-                cin >> choice;
-
-                // Handle invalid input in the inner loop
-                if (cin.fail())
-                {
-                    cin.clear();                                         // Clear the error flag
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
-                    cout << "Invalid input, please enter a number.\n";
-                    continue; // Skip to the next iteration of the loop
-                }
-
-                switch (choice)
-                {
-                case 1:
-                {
-                    int result = system("cls"); // Use "cls" for Windows
-                    if (result == -1)
-                    {
-                        cerr << "Error clearing the screen" << endl;
+            string userToken; 
+            cout << "Enter your token number: ";
+            cin >> userToken; 
+            // Open the file for reading
+            ifstream file("form_details.txt"); 
+            if (file.is_open()) {
+                string line;
+                // Read each line in the file
+                while (getline(file, line)) {
+                    // Extract the token number from the line
+                    stringstream ss(line);
+                    string tokenNumber; 
+                    getline(ss, tokenNumber, ' '); // Assuming token number is the first item on the line
+                    // Compare the token numbers
+                    if (tokenNumber == userToken) {
+                        cout << "Token number verified! You can proceed with the exam." << endl;
+                        Exam bikeExam(Question::getQuestions());
+                        bikeExam.conductExam();
+                        bikeExam.displayResult();
+                        file.close(); // Close the file
                     }
-                    regSystem.registerVehicle();
-                    break;
-                }
+                    // else { 
+                    //     std::cout << "Token number is invalid. Please register first." << std::endl;
 
-                case 2:
-                {
-                    int result = system("cls"); // Use "cls" for Windows
-                    if (result == -1)
-                    {
-                        cerr << "Error clearing the screen" << endl;
-                    }
-                    regSystem.searchVehicleByPlateNumber();
-                    break;
+                    // }
+                    
                 }
-                case 3:
-                    goto main_menu;
-                default:
-                    cout << "Invalid choice. Please try again.\n";
-                    break;
+                // If we reach here, the token number wasn't found
+                if (file.is_open()) { // Check if the file is still open
+                    file.close(); // Close the file if it's open
                 }
+            
             }
-        main_menu:
+            std::cout << "Token number is invalid. Please register first." << std::endl;
             break;
-        }
-
-        case 4:
-        {
-            int result = system("cls"); // Use "cls" for Windows
-            if (result == -1)
-            {
-                cerr << "Error clearing the screen" << endl;
-            }
-            blueBookRenewalSystem.renewVehicle();
-            break;
-        }
-        case 5:
-        {
-            cout << "Exiting...\n";
-            return 0;
         }
         default:
             cout << "Invalid option. Please try again.\n";
@@ -137,7 +86,9 @@ int main()
         }
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        exit(0);
+        // Optionally exit after each valid action or allow the user to choose another option
+        cout << "Press Enter to return to the main menu...";
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
     return 0;
