@@ -2,6 +2,7 @@
 #include "OnlineForm.h"
 #include "quiz.hpp"
 #include "VehicleRegistration.hpp"
+#include "LicenseRenewal.hpp" // Include the header file for license renewal
 #include <fstream>
 #include <regex>
 #include <limits>
@@ -17,7 +18,8 @@ void options()
          << "Enter 2 for LISCENSE exam: " << endl
          << "Enter 3 for Vehicle Registration: " << endl
          << "Enter 4 for BlueBook Renew: " << endl
-         << "Enter 5 Exit:  " << endl;
+         << "Enter 5 for Liscense Renew: " << endl
+         << "Enter 6 Exit:  " << endl;
 }
 
 int main()
@@ -126,9 +128,12 @@ int main()
             blueBookRenewalSystem.renewVehicle();
             break;
         }
-        case 5:
+        case 5:{
+               renewLicense();
+        }
+        case 6:
         {
-            cout << "Exiting...\n";
+            cout << "Exiting the system. Goodbye!\n";
             return 0;
         }
         default:
