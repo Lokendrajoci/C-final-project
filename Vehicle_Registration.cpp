@@ -1,5 +1,3 @@
-
-
 #include "VehicleRegistration.hpp"
 #include <iostream>
 #include <cstdlib>
@@ -275,4 +273,3 @@ void BlueBookRenewalSystem::renewVehicle() {
         cout << "Vehicle not found.\n";
     }
 }
-

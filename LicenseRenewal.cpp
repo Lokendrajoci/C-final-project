@@ -25,7 +25,7 @@ void LicenseDetails::inputRenewalDate() {
 
 // Function to find a license by License Number and read details
 bool findLicenseByLicenseNumber(const string &licenseNumber, LicenseDetails &details) {
-    ifstream file("output_details.txt");
+    ifstream file("oopProject/output_details.txt");
     string line;
     bool found = false;
 
@@ -58,7 +58,7 @@ bool findLicenseByLicenseNumber(const string &licenseNumber, LicenseDetails &det
 
 // Function to update the license details in the file
 void updateLicenseDetails(const LicenseDetails &details) {
-    ifstream file("output_details.txt");
+    ifstream file("oopProject/output_details.txt");
     stringstream buffer;
     string line;
     bool found = false;
@@ -86,7 +86,7 @@ void updateLicenseDetails(const LicenseDetails &details) {
     file.close();
 
     if (found) {
-        ofstream outFile("output_details.txt");
+        ofstream outFile("oopProject/output_details.txt");
         outFile << buffer.str();
         outFile.close();
         cout << "License details updated successfully!\n";

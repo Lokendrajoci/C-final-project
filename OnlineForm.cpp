@@ -13,12 +13,12 @@ OnlineForm::OnlineForm()
 {
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    cout << "Enter your name: ";
+    cout << "\n\n\n\n\n\tEnter your name: ";
     getline(cin, name);
 
     while (true)
     {
-        cout << "Enter your DOB (DD/MM/YYYY): ";
+        cout << "\tEnter your DOB (DD/MM/YYYY): ";
         getline(cin, DOB);
 
         if (isValidDOB(DOB))
@@ -27,16 +27,16 @@ OnlineForm::OnlineForm()
         }
         else
         {
-            cout << "Invalid DOB format. Please use DD/MM/YYYY." << endl;
+            cout << "\tInvalid DOB format. Please use DD/MM/YYYY." << endl;
         }
     }
 
-    cout << "Enter your age: ";
+    cout << "\tEnter your age: ";
     cin >> age;
 
     while (true)
     {
-        cout << "Enter your NID: ";
+        cout << "\tEnter your NID: ";
         cin >> NID;
 
         if (nidCheck(NID) == 0)
@@ -45,7 +45,7 @@ OnlineForm::OnlineForm()
         }
         else
         {
-            cout << "NID already exists. Please enter a different NID." << endl;
+            cout << "\tNID already exists. Please enter a different NID." << endl;
         }
     }
     srand((unsigned)time(NULL));
@@ -131,5 +131,5 @@ int OnlineForm::nidCheck(int idNo) const
 
 
 void OnlineForm::id_display()const{
-    cout<<"Your token number is: "<<TEMPORARY_ID_NUMBER<<endl;
+    cout<<"\n\n\n\n\tYour token number is: "<<TEMPORARY_ID_NUMBER<<endl;
 }

@@ -5,19 +5,20 @@
 
 using namespace std;
 
-struct LicenseDetails {
+struct LicenseDetails
+{
     string licenseNumber;
     string name;
     string dateOfBirth;
-    string age;          // Kept as string for consistency
-    string nationalID;   // Kept as string for consistency
+    string age;        // Kept as string for consistency
+    string nationalID; // Kept as string for consistency
     string renewalDate;
 
     void displayDetails() const;
     void inputRenewalDate();
 };
 
-bool findLicenseByLicenseNumber(const string &licenseNumber, LicenseDetails &details);
+bool findLicenseByLicenseNumber(int licenseNumber, LicenseDetails &details);
 void updateLicenseDetails(const LicenseDetails &details);
 void renewLicense();
 

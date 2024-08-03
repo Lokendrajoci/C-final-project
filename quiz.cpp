@@ -6,7 +6,11 @@
 #include <sstream>
 #include <algorithm> // For std::find
 
-Quiz::Quiz(const std::string &filename) : score(0) {
+#include <cstdlib>
+#include <ctime>
+
+Quiz::Quiz(const std::string &filename) : score(0)
+{
     // Read tokens from form_details.txt
     readTokenFromFile("oopProject//form_details.txt");
 
@@ -15,7 +19,8 @@ Quiz::Quiz(const std::string &filename) : score(0) {
     std::cout << "Enter token: ";
     std::cin >> userToken;
 
-    if (!isValidToken(userToken)) {
+    if (!isValidToken(userToken))
+    {
         std::cerr << "Invalid token. Exiting application." << std::endl;
         exit(EXIT_FAILURE);
     }
@@ -23,9 +28,11 @@ Quiz::Quiz(const std::string &filename) : score(0) {
     loadQuestions(filename);
 }
 
-void Quiz::readTokenFromFile(const std::string &tokenFile) {
+void Quiz::readTokenFromFile(const std::string &tokenFile)
+{
     std::ifstream file(tokenFile);
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         std::cerr << "Failed to open token file: " << tokenFile << std::endl;
         exit(EXIT_FAILURE);
     }
@@ -33,32 +40,41 @@ void Quiz::readTokenFromFile(const std::string &tokenFile) {
     std::string line;
     std::string currentToken;
 
-    while (std::getline(file, line)) {
-        if (line == "------------------------") {
-            if (!currentToken.empty()) {
+    while (std::getline(file, line))
+    {
+        if (line == "------------------------")
+        {
+            if (!currentToken.empty())
+            {
                 tokens.push_back(currentToken); // Store each token
-                currentToken.clear(); // Clear for next block
+                currentToken.clear();           // Clear for next block
             }
-        } else {
+        }
+        else
+        {
             currentToken = line; // Update currentToken
         }
     }
 
     // Handle the last token if not followed by a separator
-    if (!currentToken.empty()) {
+    if (!currentToken.empty())
+    {
         tokens.push_back(currentToken);
     }
 
     file.close();
 }
 
-bool Quiz::isValidToken(const std::string &token) const {
+bool Quiz::isValidToken(const std::string &token) const
+{
     return std::find(tokens.begin(), tokens.end(), token) != tokens.end(); // Check all tokens
 }
 
-void Quiz::loadQuestions(const std::string &filename) {
+void Quiz::loadQuestions(const std::string &filename)
+{
     std::ifstream jsonFileVar(filename); // Open the JSON file for reading
-    if (!jsonFileVar.is_open()) {
+    if (!jsonFileVar.is_open())
+    {
         std::cerr << "Failed to open JSON file: " << filename << std::endl;
         exit(EXIT_FAILURE);
     }
@@ -70,16 +86,20 @@ void Quiz::loadQuestions(const std::string &filename) {
     jsonFileVar.close();
 
     nlohmann::json qData;
-    try {
+    try
+    {
         qData = nlohmann::json::parse(data);
-    } catch (const nlohmann::json::parse_error &e) {
+    }
+    catch (const nlohmann::json::parse_error &e)
+    {
         std::cerr << "JSON parse error: " << e.what() << std::endl;
         exit(EXIT_FAILURE);
     }
 
     // Extract questions from JSON
     int qCount = qData["number of questions"];
-    if (qCount <= 0) {
+    if (qCount <= 0)
+    {
         std::cerr << "No questions found in JSON file." << std::endl;
         exit(EXIT_FAILURE);
     }
@@ -87,9 +107,11 @@ void Quiz::loadQuestions(const std::string &filename) {
     qSet.resize(qCount);
 
     int z = 0;
-    for (int i = 0; i < qCount; i++) {
+    for (int i = 0; i < qCount; i++)
+    {
         // Ensure enough data for each question
-        if (z + 6 > qData["questions"].size()) {
+        if (z + 6 > qData["questions"].size())
+        {
             std::cerr << "Insufficient data for question " << i + 1 << std::endl;
             exit(EXIT_FAILURE);
         }
@@ -105,7 +127,8 @@ void Quiz::loadQuestions(const std::string &filename) {
     }
 }
 
-void Quiz::printQuestion(const Question &q, std::string &userChoice) {
+void Quiz::printQuestion(const Question &q, std::string &userChoice)
+{
     std::cout << "Q" << q.qNum << ") " << q.qName << std::endl;
     std::cout << "A) " << q.aName << std::endl;
     std::cout << "B) " << q.bName << std::endl;
@@ -113,29 +136,40 @@ void Quiz::printQuestion(const Question &q, std::string &userChoice) {
     std::cout << "D) " << q.dName << std::endl;
     std::cout << "Your answer (A-D): ";
     std::cin >> userChoice;
-    if (userChoice == q.ansNum) {
-        std::cout << "Correct!" << std::endl << std::endl;
+    if (userChoice == q.ansNum)
+    {
+        std::cout << "Correct!" << std::endl
+                  << std::endl;
         score++;
-    } else {
-        std::cout << "Incorrect!" << std::endl << std::endl;
+    }
+    else
+    {
+        std::cout << "Incorrect!" << std::endl
+                  << std::endl;
     }
 }
 
-void Quiz::printRandomSixDigitNumber() const {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(100000, 999999);
+void Quiz::printRandomSixDigitNumber() const
+{
 
-    int random_number = dis(gen);
-    std::cout << "Your license number is: " << random_number << std::endl
-              << std::endl << std::endl << std::endl;
+    srand(time(0));
+
+    int random_number = rand() % 900000 + 100000;
+    std::cout << "\n\n\n\n\n\t\t\t\t!!!!!!!!!!!!!CONGRATULATIONS!!!!!!!!!!!!!\n\n\n\n\n"
+              << std::endl;
+    std::cout << "\t\t\t\tYour license number is: " << random_number << std::endl
+              << std::endl
+              << std::endl
+              << std::endl;
 
     writeDetailsToFile(random_number);
 }
 
-void Quiz::writeDetailsToFile(int randomNumber) const {
+void Quiz::writeDetailsToFile(int randomNumber) const
+{
     std::ofstream outFile("oopProject//output_details.txt", std::ios::app);
-    if (!outFile.is_open()) {
+    if (!outFile.is_open())
+    {
         std::cerr << "Failed to open output file." << std::endl;
         return;
     }
@@ -163,23 +197,44 @@ void Quiz::writeDetailsToFile(int randomNumber) const {
 
 int Quiz::getScore() const { return score; }
 
-void Quiz::start() {
+void Quiz::start()
+{
     std::string userChoice;
-    std::cout << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl;
-    std::cout << "Welcome to QUIZ" << std::endl << std::endl << std::endl << std::endl;
+    std::cout << std::endl
+              << std::endl
+              << std::endl
+              << std::endl
+              << std::endl
+              << std::endl
+              << std::endl;
+    std::cout << "\t\t\t\t\tWelcome to QUIZ" << std::endl
+              << std::endl
+              << std::endl
+              << std::endl;
 
-    for (const auto &q : qSet) {
+    std::cout << "\t\t\t\t***********|KEY POINTS|***********" << std::endl;
+    std::cout << "\t\t\t1. One marks will be alotted for each question." << std::endl;
+    std::cout << "\t\t\t2. total numbers of question are 15." << std::endl;
+    std::cout << "\t\t\t3. No electronics devices are allowded." << std::endl;
+    std::cout << "\t\t\t4. Minimum 10 marks is required to secure liscense exam\n\n"
+              << std::endl;
+
+    for (const auto &q : qSet)
+    {
         printQuestion(q, userChoice);
     }
 
-    std::cout << "Your total score is: " << score << std::endl;
-
-    if (score > 10) {
+    system("cls");
+   
+    std::cout << "Your total score is:"
+              << score << std::endl;
+    if (score > 10)
+    {
         printRandomSixDigitNumber();
     }
 
-    std::cout << "Press enter to exit (if you are on a Windows machine)"
-              << std::endl;
-    std::cin.ignore(); // Wait for user input before closing
-    std::cin.get();
+    // std::cout << "Press enter to exit (if you are on a Windows machine)"
+    //           << std::endl;
+    // std::cin.ignore(); // Wait for user input before closing
+    // std::cin.get();
 }

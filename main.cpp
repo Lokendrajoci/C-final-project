@@ -3,27 +3,30 @@
 #include "quiz.hpp"
 #include "VehicleRegistration.hpp"
 #include "LicenseRenewal.hpp" // Include the header file for license renewal
+#include "welcome.hpp"
 #include <fstream>
 #include <regex>
 #include <limits>
 #include <cstdlib>
 #include <iomanip>
-
+#include <cstdio>
 using namespace std;
 
 void options()
 {
     system("cls");
-    cout << "Enter 1 for  registration: " << endl
-         << "Enter 2 for LISCENSE exam: " << endl
-         << "Enter 3 for Vehicle Registration: " << endl
-         << "Enter 4 for BlueBook Renew: " << endl
-         << "Enter 5 for Liscense Renew: " << endl
-         << "Enter 6 Exit:  " << endl;
+    cout << "\tEnter 1 for  registration: " << endl
+         << "\tEnter 2 for LISCENSE exam: " << endl
+         << "\tEnter 3 for Vehicle Registration: " << endl
+         << "\tEnter 4 for BlueBook Renew: " << endl
+         << "\tEnter 5 for Liscense Renew: " << endl
+         << "\tEnter 6 Exit:  " << endl;
 }
 
 int main()
 {
+    Initializing_Display();
+    
     int userInput = 0;
 
     VehicleRegistrationSystem regSystem("vehicle_database.bin");
@@ -33,7 +36,7 @@ int main()
     {
         options();
         cout << setfill(' ');
-        cout << setw(15) << "Enter your choice: ";
+        cout << setw(15) << "\tEnter your choice: ";
         std::cin >> userInput;
         system("cls");
         if (cin.fail())
@@ -49,7 +52,7 @@ int main()
         case 1:
         {
             OnlineForm o1;
-            o1.display();
+            // o1.display();
             o1.saveToFile();
             o1.id_display();
             break;
@@ -57,8 +60,10 @@ int main()
 
         case 2:
         {
-            Quiz quiz("oopProject//qData.json"); // Initialize with the quiz data file
+            Quiz quiz("oopProject//qData.json");
             quiz.start();
+            std::cin.get();
+            break;
         }
         case 3:
         {
@@ -67,7 +72,6 @@ int main()
 
             while (true)
             {
-                system("cls");
                 cout << "\n\n";
                 cout << "1. Register Vehicle\n";
                 cout << "2. Search Vehicle by Plate Number\n";
@@ -96,7 +100,6 @@ int main()
                     regSystem.registerVehicle();
                     break;
                 }
-
                 case 2:
                 {
                     int result = system("cls"); // Use "cls" for Windows
@@ -128,8 +131,9 @@ int main()
             blueBookRenewalSystem.renewVehicle();
             break;
         }
-        case 5:{
-               renewLicense();
+        case 5:
+        {
+            renewLicense();
         }
         case 6:
         {
