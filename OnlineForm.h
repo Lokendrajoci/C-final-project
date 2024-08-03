@@ -17,6 +17,8 @@ public:
     void saveToFile() const;
     void loadFromFile() const;
     int nidCheck(int NID) const;
+
+    void id_display()const;
 };
 
 #endif 

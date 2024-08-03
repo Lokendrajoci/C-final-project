@@ -128,3 +128,8 @@ int OnlineForm::nidCheck(int idNo) const
     file.close();
     return 0;
 }
+
+
+void OnlineForm::id_display()const{
+    cout<<"Your token number is: "<<TEMPORARY_ID_NUMBER<<endl;
+}

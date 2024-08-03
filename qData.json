@@ -1,0 +1,21 @@
+{
+ "number of questions" : 14,   
+ "questions" : ["What is the speed limit in a residential area?", "30 km/h", "50 km/h", "60 km/h","80 km/h", "C",
+                "What should you do at a stop sign?", "Stop completely", "Slow down", "Speed up", "Yield", "B",
+                "What is the legal blood alcohol limit for drivers?", "0.05%", "0.08%", "0.10%", "0.15%", "A",
+                "When should you use your headlights?", "At all times", "Only at night", "In bad weather", "In tunnels","A",
+                "What is the proper way to make a right turn?", "Speed up", "Slow down", "Maintain speed", "Stop","A",
+                "What should you do if you see an emergency vehicle with lights on?","Speed up", "Slow down", "Pull over to the right", "Continue driving","A",
+                "What is the correct tire pressure for a car?", "20 psi", "30 psi", "40 psi", "50 psi","A",
+                "How often should you change your car's oil?","Every 3 months", "Every 6 months", "Every year", "Every 2 years","A",
+                "What is the best way to handle a wet road?","Speed up", "Slow down", "Maintain speed", "Stop","A",
+                "What should you do if you have a flat tire while driving?","Stop immediately", "Continue driving", "Speed up", "Signal and pull over safely","A",
+                "What should you check before every drive?","Oil level", "Tire pressure", "Brakes", "All of the above","A",
+                "When should you use your horn?", "At all times", "Only in emergencies", "When passing another vehicle", "When you see a pedestrian","A",
+                "What should you do if you encounter a pothole?", "Speed up", "Slow down", "Maintain speed", "Swerve around it","A",
+                "What is the best way to handle a curve?", "Speed up", "Slow down", "Maintain speed", "Stop","A"
+                ]
+}
+
+
+
