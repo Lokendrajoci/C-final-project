@@ -207,7 +207,7 @@ void Quiz::start()
               << std::endl
               << std::endl
               << std::endl;
-    std::cout << "\t\t\t\t\tWelcome to QUIZ" << std::endl
+    std::cout << "\t\t\t\t\tWelcome to LISCENSE EXAM" << std::endl
               << std::endl
               << std::endl
               << std::endl;
@@ -225,7 +225,7 @@ void Quiz::start()
     }
 
     system("cls");
-   
+
     std::cout << "Your total score is:"
               << score << std::endl;
     if (score > 10)
