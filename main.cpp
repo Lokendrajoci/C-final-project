@@ -25,8 +25,9 @@ void options()
 
 int main()
 {
+
     Initializing_Display();
-    
+
     int userInput = 0;
 
     VehicleRegistrationSystem regSystem("vehicle_database.bin");
